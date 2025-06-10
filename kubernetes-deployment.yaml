@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: circle-ci-project
 spec:
-  replicas: 2
+  replicas: 2 # You are requesting 2 replicas of your pod
   selector:
     matchLabels:
       app: circle-ci-project
@@ -17,6 +17,13 @@ spec:
           image: us-central1-docker.pkg.dev/sigma-scheduler-461007-u2/circle-ci-project/circle-ci-project:latest
           ports:
             - containerPort: 5000
+          resources:
+            requests:
+              cpu: "200m" # Request 0.2 CPU core for your pod
+              memory: "256Mi" # Request 256 MiB of memory
+            limits:
+              cpu: "500m" # Limit to 0.5 CPU core
+              memory: "512Mi" # Limit to 512 MiB of memory
 
 ---
 apiVersion: v1
