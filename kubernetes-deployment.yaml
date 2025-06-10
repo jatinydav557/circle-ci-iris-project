@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: circle-ci-project
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: circle-ci-project
+  template:
+    metadata:
+      labels:
+        app: circle-ci-project
+    spec:
+      containers:
+        - name: circle-ci-project
+          image: us-central1-docker.pkg.dev/sigma-scheduler-461007-u2/circle-ci-project/circle-ci-project:latest
+          ports:
+            - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: circle-ci-project
+spec:
+  selector:
+    app: circle-ci-project
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer
