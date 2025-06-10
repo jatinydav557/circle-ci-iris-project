@@ -1,0 +1,3 @@
+venv/
+circle_ci_testing.egg-info
+logs/
